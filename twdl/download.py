@@ -3,7 +3,8 @@
 
 import re
 import requests as req
-from twdl.tokens import Token
+
+from .tokens import Token
 
 
 class Download:
@@ -22,22 +23,7 @@ class Download:
         }
         # self.guest_token = guest_token
         # self.bearer_token = bearer_token
-        self._tokens()
-
-    def _session(self):
-        raise NotImplementedError
-
-    def _tokens(self):
-        data = self.session.get("https://twitter.com").text
-        guest_token = re.search(r'decodeURIComponent\("gt=(.*?)\;', data).group(1)
-
-        version = re.search(r"\/web\/main.(.*?)\.js", data).group(1)
-        data = self.session.get(
-            f"https://abs.twimg.com/responsive-web/web/main.{version}.js"
-        ).text
-        bearer_token = "AAAAAAAAAAA" + data.split("AAAAAAAAAAA")[-1].split('"')[0]
-
-        return {"gtoken": guest_token, "btoken": bearer_token}
+        self.tokens = Token()
 
     def _download(self, video, filename):
         with self.session.get(video, stream=True) as resp:
@@ -66,8 +52,8 @@ class Download:
         #     raise ValueError("Invalid Tweet ID")
 
         headers = {
-            "authorization": f"Bearer {self.btoken}",
-            "x-guest-token": self.gtoken,
+            "authorization": f"Bearer {self.tokens.btoken}",
+            "x-guest-token": self.tokens.gtoken,
         }
         params = {"refsrc_tweet": target, "tweet_mode": "extended"}
 
@@ -87,14 +73,6 @@ class Download:
     @property
     def found(self):
         raise NotImplementedError
-
-    @property
-    def gtoken(self):
-        return self._tokens()["gtoken"]
-
-    @property
-    def btoken(self):
-        return self._tokens()["btoken"]
 
     @property
     def available_bitrates(self):
