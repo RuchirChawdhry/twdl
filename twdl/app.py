@@ -5,6 +5,7 @@ from plumbum import cli
 from functools import lru_cache
 from rich.console import Console
 
+
 from .tokens import Token
 
 
@@ -23,17 +24,17 @@ class TWDL(cli.Application):
     def main(self):
         console = Console()
         token = Token()
+        console.rule("TWDL - Twitter Video Downloader")
 
         if self.guest_token:
-            console.rule("Guest Token")
             console.print(
-                f"\n\tGuest Token: [center bold green]{token.guest_token}\n[/center bold green]\n",
+                f"\n\tGuest Token: [bold green]{token.guest_token}\n[/bold green]\n",
                 highlight=False,
                 markup=True,
             )
 
         if self.bearer_token:
-            console.rule("Guest Token")
+            console.rule("Bearer Token")
             console.print(
                 f"\n\tBearer Token: [bold green]{token.bearer_token}\n[/bold green]\n"
             )
