@@ -3,6 +3,7 @@
 
 import requests as req
 import re
+from functools import lru_cache
 
 
 class Token:
@@ -13,6 +14,7 @@ class Token:
         }
         self._tokens()
 
+    @lru_cache(4)
     def _tokens(self):
         data = self.session.get("https://twitter.com").text
         guest_token = re.search(r'decodeURIComponent\("gt=(.*?)\;', data).group(1)
