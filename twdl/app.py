@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from plumbum import cli
-from twtoken import Token
+from functools import lru_cache
+from rich.console import Console
+
+from .tokens import Token
 
 
 class TWDL(cli.Application):
@@ -18,12 +21,21 @@ class TWDL(cli.Application):
     tweet_url = cli.Flag(["T", "tweet"])
 
     def main(self):
-        print(self.helpall())
+        console = Console()
+        token = Token()
 
-        if self.guest_token or self.bearer_token:
-            token = Token()
-            print(
-                f"Guest Token: {token.guest_token}\nBearer Token: {token.bearer_token}"
+        if self.guest_token:
+            console.rule("Guest Token")
+            console.print(
+                f"\n\tGuest Token: [center bold green]{token.guest_token}\n[/center bold green]\n",
+                highlight=False,
+                markup=True,
+            )
+
+        if self.bearer_token:
+            console.rule("Guest Token")
+            console.print(
+                f"\n\tBearer Token: [bold green]{token.bearer_token}\n[/bold green]\n"
             )
 
 
