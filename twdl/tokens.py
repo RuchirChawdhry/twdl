@@ -5,13 +5,12 @@ import requests as req
 import re
 from functools import lru_cache
 
+from . import response
 
-class Token:
+
+class Token(response.Response):
     def __init__(self):
-        self.session = req.Session()
-        self.session.headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36"
-        }
+        super().__init__()
         self._tokens()
 
     @lru_cache(4)
@@ -25,20 +24,12 @@ class Token:
         ).text
         bearer_token = "AAAAAAAAAAA" + data.split("AAAAAAAAAAA")[-1].split('"')[0]
 
-        return {"gtoken": guest_token, "btoken": bearer_token}
+        return {"guest_token": guest_token, "bearer_token": bearer_token}
 
     @property
     def guest_token(self):
-        return self._tokens()["gtoken"]
-
-    @property
-    def gtoken(self):
-        return self._tokens()["gtoken"]
+        return self._tokens()["guest_token"]
 
     @property
     def bearer_token(self):
-        return self._tokens()["btoken"]
-
-    @property
-    def btoken(self):
-        return self._tokens()["btoken"]
+        return self._tokens()["bearer_token"]
