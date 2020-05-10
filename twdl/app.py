@@ -20,23 +20,25 @@ class TWDL(cli.Application):
     DESCRIPTION = ""
     DESCRIPTION_MORE = ""
 
-    guest_token = cli.Flag(["G", "guest-token"], help="Gets the guest token")
-    bearer_token = cli.Flag(["B", "bearer-token"], help="Gets the bearer token")
-    video_quality = cli.Flag(["best-quality"])
-    tweet_id = cli.SwitchAttr(["I", "tweet-id"])
+    guest_token = cli.Flag(["G", "guest-token"], help="Get the guest token")
+    bearer_token = cli.Flag(["B", "bearer-token"], help="Get the bearer token")
+    tweet_id = cli.SwitchAttr(["I", "tweet-id"], help="Get Tweet ID")
 
-    @cli.switch(["-D", "--download"], str)
-    def download(self, tweet_url):
-        console = self.console
+    def heading(self):
+        return self.console.rule("TWDL - Twitter Video Downloader")
+
+    @cli.switch(
+        ["-T", "--table"], str, help="Show all available videos in table format"
+    )
+    def table(self, tweet_url):
+        self.heading()
 
         tweet = Query(tweet_url)
         videos = Video(tweet.get())
 
-        # table
-        columns = ["#", "Bitrate", "Filesize", "Link"]
         table = Table(show_header=True, header_style="bold")
-        for column in columns:
-            table.add_column(column)
+        columns = ["#", "Bitrate", "Filesize", "Link"]
+        list(map(table.add_column, columns))
 
         for i in range(len(videos)):
             table.add_row(
@@ -46,28 +48,38 @@ class TWDL(cli.Application):
                 videos.urls[i],
             )
 
-        console.print(table)
+        self.console.print(table)
+
+    @cli.switch(["-D", "--download"], str, help="Download best quality in mp4")
+    def download(self, tweet_url):
+        self.heading()
+        tweet = Query(tweet_url)
+        video = Video(tweet.get())
+
+        video.download(video.filesize[0], video.urls[0], "/Users/ruchir/testestest.mp4")
+        self.console.print("\n[bold green]Success![/bold green]\n\n")
+        # //TODO: Print path of downloaded file in the success message
 
     def main(self):
-        token = Token()
-        console = self.console
-        console.rule("TWDL - Twitter Video Downloader")
-
         if self.guest_token:
-            console.print(
+            self.heading()
+            token = Token()
+            self.console.print(
                 f"\n\tGuest Token: [bold green]{token.guest_token}\n[/bold green]\n",
                 highlight=False,
             )
-
         if self.bearer_token:
-            console.print(
+            self.heading()
+            token = Token()
+            self.console.print(
                 f"\n\tBearer Token: [bold green]{token.bearer_token}\n[/bold green]\n",
                 highlight=False,
             )
-
         if self.tweet_id:
+            self.heading()
+            token = Token()
             query = Query(self.tweet_id)
-            console.print(
+            self.console.print(
                 f"\n\tTweet ID: [bold green]{query.tweet_id}\n[/bold green]\n",
                 highlight=False,
             )
