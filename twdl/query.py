@@ -40,6 +40,7 @@ class Query(response.Response):
         headers = {
             "authorization": f"Bearer {t.bearer_token}",
             "x-guest-token": t.guest_token,
+            "Connection": "close",
         }
         params = {"refsrc_tweet": self.tweet_id, "tweet_mode": "extended"}
 
@@ -48,16 +49,6 @@ class Query(response.Response):
 
         response = self.session.get("https://api.twitter.com/2/rux.json")
         return self._videos(self.tweet_id, response.json())
-
-    # @lru_cache(5)
-    def videos(self):
-        vids = self.video_list
-
-        bitrates = [i["bitrate"] for i in vids]
-        urls = [i["url"] for i in vids]
-        resolution = [url.split("/")[6] for url in urls]
-
-        return bitrates, urls, resolution
 
     @property
     def tweet_id(self):
@@ -74,8 +65,3 @@ class Query(response.Response):
     @property
     def found(self):
         raise NotImplementedError
-
-
-if __name__ == "__main__":
-    d = Query("1256610010257375235")
-    d.get()
