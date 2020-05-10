@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import requests as req
+from rich.progress import Progress
 
 from . import response
 
@@ -26,11 +27,20 @@ class Video(response.Response):
     @property
     def filesize(self):
         resp = list(map(self.session.head, self.urls))
-        mb = [int(i.headers["Content-Length"]) // 1024 for i in resp]
-        return [f"{i:,g}" for i in mb]
+        kb = [int(i.headers["Content-Length"]) // 1024 for i in resp]
+        return kb
+        # return [f"{i:,g}" for i in kb]
 
-    def download(self, filename, video):
-        with self.session.get(video, stream=True) as resp:
-            with open(filename, "wb") as f:
-                for chunk in resp.iter_content(chunk_size=8192):
-                    f.write(chunk)
+    def download(self, size, video, filename):
+        progress = Progress()
+        progress.add_task("Downloading...", total=size)
+
+        with progress:
+            progress.update(task_id=0, advance=0)
+
+            with self.session.get(video, stream=True) as resp:
+                with open(filename, "wb") as f:
+
+                    for chunk in resp.iter_content(chunk_size=4096):
+                        f.write(chunk)
+                        progress.update(task_id=0, advance=len(chunk))
