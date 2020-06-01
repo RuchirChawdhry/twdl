@@ -1,0 +1,4 @@
+cnamedtuple==0.1.6
+plumbum==1.6.9
+requests==2.23.0
+rich==1.3.0
