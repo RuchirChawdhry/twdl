@@ -13,6 +13,8 @@ class Response:
         if not headers or params:
             self._default_headers()
 
+    # //TODO: randomization of user_agents instead of hard-coding one
+
     def _default_headers(self):
         user_agent = [
             "Mozilla/5.0",

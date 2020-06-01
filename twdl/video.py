@@ -4,7 +4,7 @@
 import requests as req
 from rich.progress import Progress
 
-from . import response
+from twdl import response
 
 
 class Video(response.Response):

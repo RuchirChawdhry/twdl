@@ -5,9 +5,9 @@ import re
 import requests as req
 from functools import lru_cache
 
-from .tokens import Token
-from .video import Video
-from . import response
+from twdl.tokens import Token
+from twdl.video import Video
+from twdl import response
 
 
 class Query(response.Response):

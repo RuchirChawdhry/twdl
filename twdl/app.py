@@ -7,9 +7,9 @@ from functools import lru_cache
 from rich.console import Console
 from rich.table import Column, Table
 
-from .tokens import Token
-from .query import Query
-from .video import Video
+from twdl.tokens import Token
+from twdl.query import Query
+from twdl.video import Video
 
 
 class TWDL(cli.Application):
@@ -83,7 +83,3 @@ class TWDL(cli.Application):
                 f"\n\tTweet ID: [bold green]{query.tweet_id}\n[/bold green]\n",
                 highlight=False,
             )
-
-
-if __name__ == "__main__":
-    TWDL.run()

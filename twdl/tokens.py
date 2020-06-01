@@ -5,7 +5,7 @@ import requests as req
 import re
 from functools import lru_cache
 
-from . import response
+from twdl import response
 
 
 class Token(response.Response):
