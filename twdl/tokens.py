@@ -24,7 +24,10 @@ class Token(response.Response):
         ).text
         bearer_token = "AAAAAAAAAAA" + data.split("AAAAAAAAAAA")[-1].split('"')[0]
 
-        return {"guest_token": guest_token, "bearer_token": bearer_token}
+        return {
+            "guest_token": guest_token,
+            "bearer_token": bearer_token,
+        }
 
     @property
     def guest_token(self):
