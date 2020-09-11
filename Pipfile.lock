@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e78f553f70b41163132a86c463e515a2627122b96bb3af0995d1484440492e5a"
+            "sha256": "485ce454d77dcf3e9da5efd7d634f840ce9956c0e484cf503e8960ce6ff3d0d7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -83,11 +83,11 @@
         },
         "rich": {
             "hashes": [
-                "sha256:38d1cdef534309b937f046c9f84f2a3ac9e8d5723d3f1238362ba82d8c9636f8",
-                "sha256:fc96642323fecec140c919850172dcaf52c111b3abfd3588a09a63120c0a98c6"
+                "sha256:8555f056e76ee5dacecd9059e8f016abb85d3043274db6500b5f865b467005a2",
+                "sha256:b316b5e8b167cd562d4315cf6c80399c253df444143e2053f593372bb2056ea4"
             ],
             "index": "pypi",
-            "version": "==6.1.1"
+            "version": "==6.1.2"
         },
         "typing-extensions": {
             "hashes": [
@@ -261,7 +261,6 @@
                 "sha256:fc0fea399acb12edbf8a628ba8d2312f583bdbdb3335635db062fa98cf71fca4",
                 "sha256:fe460b922ec15dd205595c9b5b99e2f056fd98ae8f9f56b888e7a17dc2b757e7"
             ],
-            "markers": "implementation_name == 'cpython' and python_version < '3.8'",
             "version": "==1.4.1"
         },
         "wrapt": {
