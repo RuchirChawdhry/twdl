@@ -6,8 +6,8 @@ colorama==0.4.3
 commonmark==0.9.1
 idna==2.10
 plumbum==1.6.9
-pygments==2.6.1
+pygments==2.7.0
 requests==2.24.0
-rich==6.1.2
+rich==6.2.0
 typing-extensions==3.7.4.3
 urllib3==1.25.10
