@@ -9,7 +9,7 @@ black = "==19.10b0"
 
 [packages]
 requests = "==2.24.0"
-rich = "==7.1.0"
+rich = "==8.0.0"
 plumbum = "==1.6.9"
 cnamedtuple = "==0.1.6"
 
