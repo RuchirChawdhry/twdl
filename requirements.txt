@@ -1,13 +1,13 @@
 -i https://pypi.org/simple/
-certifi==2020.11.8
-chardet==3.0.4
+certifi==2020.12.5
+chardet==4.0.0
 cnamedtuple==0.1.6
 colorama==0.4.4
 commonmark==0.9.1
 idna==2.10
 plumbum==1.6.9
-pygments==2.7.2
-requests==2.25.0
+pygments==2.7.3
+requests==2.25.1
 rich==9.3.0
 typing-extensions==3.7.4.3
 urllib3==1.26.2
