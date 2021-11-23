@@ -10,7 +10,7 @@ black = "==19.10b0"
 [packages]
 requests = "==2.25.0"
 rich = "==9.3.0"
-plumbum = "==1.6.9"
+plumbum = "==1.7.1"
 cnamedtuple = "==0.1.6"
 
 [requires]
